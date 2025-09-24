@@ -1,88 +1,102 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Village to GN Search (Static)</title>
+  <title>Village to GN Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f5f7fa;
+    }
+    h2 {
+      color: #333;
+    }
+    .search-box {
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .results {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .result-item {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    .result-item:last-child {
+      border-bottom: none;
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; margin: 30px; background: #f5f7fa;">
-
-  <h2 style="color:#333;">🔍 Search Village → Find GN Division | DS Maharagama</h2>
-
-  <!-- Search box (not functional without JS) -->
-  <div style="margin-bottom:20px;">
-    <input type="text" placeholder="Type a village name..." 
-      style="width:100%; padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc;">
+<body>
+  <h2>🔍 Search Village → Find GN Division | DS Maharagama </h2>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Type a village name...">
   </div>
+  <div id="results" class="results"></div>
 
-  <!-- Static Results -->
-  <div style="margin-top:15px; padding:15px; border-radius:10px; background:white; 
-              box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+  <script>
+    // Dataset extracted from Excel (sample preview - replace with full dataset)
+    const data = [
+      { village: "Athurugiriya Road-අතුරුගිරිය පාර", gn: "497 Rukmale West-497 රුකලේ බටහිර" },
+      { village: "Wakada Road-වෑකඩ පාර", gn: "497 Rukmale West -497 රුකලේ බටහිර" },
+      { village: "Vidyala Road- විද්‍යාල පාර", gn: "497 Rukmale West-497 රුකලේ බටහිර" },
+      { village: "Nadudeniya Road-නාදෙනිය පාර", gn: "497 Rukmale West-497 රුකලේ බටහිර" },
+      { village: "Horahena Road", gn: "497 Rukmale West" },
+	  { village: "Asiri Mawatha", gn: "498 Malapalla East" },
+	  { village: "Pansala Road", gn: "497 A Rukmale East" },
+	  { village: "Nawa nagaraya", gn: "497 A Rukmale East" },
+	  { village: "Pasal Patumaga", gn: "497 A Rukmale East" },
+	  { village: "Haldiyawala Road", gn: "497 A Rukmale East" },
+	  { village: "Athurugiriya Road", gn: "497 A Rukmale East" },
+	  { village: "Nilupul Uyana", gn: "498 Malapalla East" },
+	  { village: "Galabada Wattha", gn: "498 Malapalla East" },
+	  { village: "Mendis Weerasinghe Mawatha", gn: "498 Malapalla East" },
+	  { village: "Wakada Road", gn: "498 Malapalla East" },
+	  { village: "Parakkrama Mawatha", gn: "498 Malapalla East" },
+	  { village: "Palamu Patumaga", gn: "498 Malapalla East" },
+	  { village: "Devana Patumaga", gn: "498 Malapalla East" },
+	  { village: "Thevana Patumaga", gn: "498 Malapalla East" },
+	  { village: "Hatharawana Patumaga", gn: "498 Malapalla East" },
+	  { village: "Nugagahalanda Pedasa", gn: "498 Malapalla East" },
+	  
+	  
+	  
+      // 👉 Add all rows here (or load via JSON file)
+    ];
 
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Athurugiriya Road-අතුරුගිරිය පාර → 🏢 497 Rukmale West-497 රුකලේ බටහිර
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Wakada Road-වෑකඩ පාර → 🏢 497 Rukmale West -497 රුකලේ බටහිර
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Vidyala Road- විද්‍යාල පාර → 🏢 497 Rukmale West-497 රුකලේ බටහිර
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Nadudeniya Road-නාදෙනිය පාර → 🏢 497 Rukmale West-497 රුකලේ බටහිර
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Horahena Road → 🏢 497 Rukmale West
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Asiri Mawatha → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Pansala Road → 🏢 497 A Rukmale East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Nawa nagaraya → 🏢 497 A Rukmale East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Pasal Patumaga → 🏢 497 A Rukmale East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Haldiyawala Road → 🏢 497 A Rukmale East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Athurugiriya Road → 🏢 497 A Rukmale East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Nilupul Uyana → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Galabada Wattha → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Mendis Weerasinghe Mawatha → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Wakada Road → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Parakkrama Mawatha → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Palamu Patumaga → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Devana Patumaga → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Thevana Patumaga → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px; border-bottom:1px solid #eee;">
-      🏘️ Hatharawana Patumaga → 🏢 498 Malapalla East
-    </div>
-    <div style="padding:8px;">
-      🏘️ Nugagahalanda Pedasa → 🏢 498 Malapalla East
-    </div>
+    const searchInput = document.getElementById('searchInput');
+    const resultsDiv = document.getElementById('results');
 
-  </div>
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      resultsDiv.innerHTML = "";
+
+      if(query.length > 0) {
+        const matches = data.filter(item => item.village.toLowerCase().includes(query));
+
+        if(matches.length > 0) {
+          matches.forEach(item => {
+            const div = document.createElement('div');
+            div.classList.add('result-item');
+            div.textContent = `🏘️ ${item.village} → 🏢 ${item.gn}`;
+            resultsDiv.appendChild(div);
+          });
+        } else {
+          resultsDiv.innerHTML = "<p>No matches found</p>";
+        }
+      }
+    });
+  </script>
 </body>
 </html>
